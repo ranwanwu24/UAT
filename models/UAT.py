@@ -147,9 +147,9 @@ class uncertainty_generation(nn.Module):
         mean = self.mean_conv(x)
         std = self.std_conv(x)
 
-        prob = self.reparameterize(mean, std, 1)         #服从均值为mean，方差为std的正态分布
+        prob = self.reparameterize(mean, std, 1)         
 
-        prob_out = self.reparameterize(mean, std, 50)    #服从均值为mean，方差为std的正态分布，并且进行50次的采样
+        prob_out = self.reparameterize(mean, std, 50)    
         prob_out = torch.sigmoid(prob_out)
         uncertainty = prob_out.var(dim=1, keepdim=True).detach()
         uncertainty = (uncertainty - uncertainty.min()) / (uncertainty.max() - uncertainty.min())
